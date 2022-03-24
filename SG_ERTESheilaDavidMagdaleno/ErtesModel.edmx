@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bd_ertesBD.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EMPLEADOS">
+          <Key>
+            <PropertyRef Name="Dni" />
+          </Key>
+          <Property Name="Dni" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Domicilio" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Foto" Type="image" />
+          <Property Name="Empresa" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPRESAS">
+          <Key>
+            <PropertyRef Name="Cif" />
+          </Key>
+          <Property Name="Cif" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Domicilio" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sector" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ERTES">
+          <Key>
+            <PropertyRef Name="Id_erte" />
+          </Key>
+          <Property Name="Id_erte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Empresa" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Fecha_inicio" Type="date" Nullable="false" />
+          <Property Name="Fecha_fin" Type="date" />
+        </EntityType>
+        <EntityType Name="SECTORES">
+          <Key>
+            <PropertyRef Name="Id_sector" />
+          </Key>
+          <Property Name="Id_sector" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="empleados_fk_empr">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="EMPLEADOS" Type="Self.EMPLEADOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="Cif" />
+            </Principal>
+            <Dependent Role="EMPLEADOS">
+              <PropertyRef Name="Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empresas_fk_sec">
+          <End Role="SECTORES" Type="Self.SECTORES" Multiplicity="1" />
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SECTORES">
+              <PropertyRef Name="Id_sector" />
+            </Principal>
+            <Dependent Role="EMPRESAS">
+              <PropertyRef Name="Sector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ertes_fk_empr">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="ERTES" Type="Self.ERTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="Cif" />
+            </Principal>
+            <Dependent Role="ERTES">
+              <PropertyRef Name="Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_ertesBDStoreContainer">
+          <EntitySet Name="EMPLEADOS" EntityType="Self.EMPLEADOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPRESAS" EntityType="Self.EMPRESAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ERTES" EntityType="Self.ERTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SECTORES" EntityType="Self.SECTORES" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="empleados_fk_empr" Association="Self.empleados_fk_empr">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="EMPLEADOS" EntitySet="EMPLEADOS" />
+          </AssociationSet>
+          <AssociationSet Name="empresas_fk_sec" Association="Self.empresas_fk_sec">
+            <End Role="SECTORES" EntitySet="SECTORES" />
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+          </AssociationSet>
+          <AssociationSet Name="ertes_fk_empr" Association="Self.ertes_fk_empr">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="ERTES" EntitySet="ERTES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bd_ertesBD" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EMPLEADOS">
+          <Key>
+            <PropertyRef Name="Dni" />
+          </Key>
+          <Property Name="Dni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Domicilio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Empresa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EMPRESAS" Relationship="Self.empleados_fk_empr" FromRole="EMPLEADOS" ToRole="EMPRESAS" />
+        </EntityType>
+        <EntityType Name="EMPRESAS">
+          <Key>
+            <PropertyRef Name="Cif" />
+          </Key>
+          <Property Name="Cif" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Domicilio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sector" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EMPLEADOS" Relationship="Self.empleados_fk_empr" FromRole="EMPRESAS" ToRole="EMPLEADOS" />
+          <NavigationProperty Name="SECTORES" Relationship="Self.empresas_fk_sec" FromRole="EMPRESAS" ToRole="SECTORES" />
+          <NavigationProperty Name="ERTES" Relationship="Self.ertes_fk_empr" FromRole="EMPRESAS" ToRole="ERTES" />
+        </EntityType>
+        <EntityType Name="ERTES">
+          <Key>
+            <PropertyRef Name="Id_erte" />
+          </Key>
+          <Property Name="Id_erte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Empresa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha_inicio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Fecha_fin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EMPRESAS" Relationship="Self.ertes_fk_empr" FromRole="ERTES" ToRole="EMPRESAS" />
+        </EntityType>
+        <EntityType Name="SECTORES">
+          <Key>
+            <PropertyRef Name="Id_sector" />
+          </Key>
+          <Property Name="Id_sector" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EMPRESAS" Relationship="Self.empresas_fk_sec" FromRole="SECTORES" ToRole="EMPRESAS" />
+        </EntityType>
+        <Association Name="empleados_fk_empr">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="EMPLEADOS" Type="Self.EMPLEADOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="Cif" />
+            </Principal>
+            <Dependent Role="EMPLEADOS">
+              <PropertyRef Name="Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empresas_fk_sec">
+          <End Role="SECTORES" Type="Self.SECTORES" Multiplicity="1" />
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SECTORES">
+              <PropertyRef Name="Id_sector" />
+            </Principal>
+            <Dependent Role="EMPRESAS">
+              <PropertyRef Name="Sector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ertes_fk_empr">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="ERTES" Type="Self.ERTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="Cif" />
+            </Principal>
+            <Dependent Role="ERTES">
+              <PropertyRef Name="Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_ertesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EMPLEADOS" EntityType="Self.EMPLEADOS" />
+          <EntitySet Name="EMPRESAS" EntityType="Self.EMPRESAS" />
+          <EntitySet Name="ERTES" EntityType="Self.ERTES" />
+          <EntitySet Name="SECTORES" EntityType="Self.SECTORES" />
+          <AssociationSet Name="empleados_fk_empr" Association="Self.empleados_fk_empr">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="EMPLEADOS" EntitySet="EMPLEADOS" />
+          </AssociationSet>
+          <AssociationSet Name="empresas_fk_sec" Association="Self.empresas_fk_sec">
+            <End Role="SECTORES" EntitySet="SECTORES" />
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+          </AssociationSet>
+          <AssociationSet Name="ertes_fk_empr" Association="Self.ertes_fk_empr">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="ERTES" EntitySet="ERTES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bd_ertesBDStoreContainer" CdmEntityContainer="bd_ertesEntities">
+          <EntitySetMapping Name="EMPLEADOS">
+            <EntityTypeMapping TypeName="bd_ertesBD.EMPLEADOS">
+              <MappingFragment StoreEntitySet="EMPLEADOS">
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPRESAS">
+            <EntityTypeMapping TypeName="bd_ertesBD.EMPRESAS">
+              <MappingFragment StoreEntitySet="EMPRESAS">
+                <ScalarProperty Name="Cif" ColumnName="Cif" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ERTES">
+            <EntityTypeMapping TypeName="bd_ertesBD.ERTES">
+              <MappingFragment StoreEntitySet="ERTES">
+                <ScalarProperty Name="Id_erte" ColumnName="Id_erte" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="Fecha_inicio" ColumnName="Fecha_inicio" />
+                <ScalarProperty Name="Fecha_fin" ColumnName="Fecha_fin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SECTORES">
+            <EntityTypeMapping TypeName="bd_ertesBD.SECTORES">
+              <MappingFragment StoreEntitySet="SECTORES">
+                <ScalarProperty Name="Id_sector" ColumnName="Id_sector" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
