@@ -24,28 +24,28 @@ namespace SG_ERTESheilaDavidMagdaleno
 
         private void iNFORMESToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (this.MdiChildren.Length > 0)
-            //{
-            //    if (MdiChildren[0].Name != "frmInformes")
-            //    {
-            //        DialogResult rs = MessageBox.Show("¿ Deseas cerrar las " + MdiChildren[0].Name + "?", "!ATENCION¡", MessageBoxButtons.YesNo);
-            //        if (rs == DialogResult.Yes)
-            //        {
-            //            MdiChildren[0].Close();
-            //            frmInformes f1 = new frmInformes();
-            //            f1.MdiParent = this;
-            //            f1.Dock = DockStyle.Fill;
-            //            f1.Show();
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    frmInformes f1 = new frmInformes();
-            //    f1.MdiParent = this;
-            //    f1.Dock = DockStyle.Fill;
-            //    f1.Show();
-            //}
+            if (this.MdiChildren.Length > 0)
+            {
+                if (MdiChildren[0].Name != "frmInformes")
+                {
+                    DialogResult rs = MessageBox.Show("¿ Deseas cerrar las " + MdiChildren[0].Name + "?", "!ATENCION¡", MessageBoxButtons.YesNo);
+                    if (rs == DialogResult.Yes)
+                    {
+                        MdiChildren[0].Close();
+                        frmInformes f1 = new frmInformes();
+                        f1.MdiParent = this;
+                        f1.Dock = DockStyle.Fill;
+                        f1.Show();
+                    }
+                }
+            }
+            else
+            {
+                frmInformes f1 = new frmInformes();
+                f1.MdiParent = this;
+                f1.Dock = DockStyle.Fill;
+                f1.Show();
+            }
         }
 
         private void eRTESToolStripMenuItem_Click(object sender, EventArgs e)

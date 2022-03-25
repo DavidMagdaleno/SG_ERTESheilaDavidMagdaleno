@@ -108,6 +108,12 @@
     <Compile Include="frmErtes.Designer.cs">
       <DependentUpon>frmErtes.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmInformes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInformes.Designer.cs">
+      <DependentUpon>frmInformes.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmModEmpre.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,12 @@
     </Compile>
     <Compile Include="frmNewEmpre.Designer.cs">
       <DependentUpon>frmNewEmpre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmNewErte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNewErte.Designer.cs">
+      <DependentUpon>frmNewErte.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,11 +149,17 @@
     <EmbeddedResource Include="frmErtes.resx">
       <DependentUpon>frmErtes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmInformes.resx">
+      <DependentUpon>frmInformes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmModEmpre.resx">
       <DependentUpon>frmModEmpre.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNewEmpre.resx">
       <DependentUpon>frmNewEmpre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNewErte.resx">
+      <DependentUpon>frmNewErte.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

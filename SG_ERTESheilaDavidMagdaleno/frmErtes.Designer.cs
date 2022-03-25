@@ -216,6 +216,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.btnNewErte.TabIndex = 18;
             this.btnNewErte.Text = "Nuevo ERTE";
             this.btnNewErte.UseVisualStyleBackColor = true;
+            this.btnNewErte.Click += new System.EventHandler(this.btnNewErte_Click);
             // 
             // btnFinErte
             // 
@@ -225,6 +226,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.btnFinErte.TabIndex = 19;
             this.btnFinErte.Text = "Fin ERTE";
             this.btnFinErte.UseVisualStyleBackColor = true;
+            this.btnFinErte.Click += new System.EventHandler(this.btnFinErte_Click);
             // 
             // frmErtes
             // 
@@ -251,6 +253,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmErtes";
             this.Text = "frmErtes";
             ((System.ComponentModel.ISupportInitialize)(this.dgvErtes)).EndInit();
