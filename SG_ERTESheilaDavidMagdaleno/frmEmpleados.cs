@@ -23,8 +23,18 @@ namespace SG_ERTESheilaDavidMagdaleno
             resp = MessageBox.Show("Estas seguro de quieres insertar el Empleado", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
             if (resp == DialogResult.Yes) {
                 this.Validate();
-                this.eMPLEADOSBindingSource.EndEdit();
-                this.tableAdapterManager.UpdateAll(this.bd_ertesDataSet);
+                try {
+                    this.eMPLEADOSBindingSource.EndEdit();
+                    this.tableAdapterManager.UpdateAll(this.bd_ertesDataSet);
+                } catch (Exception x) {
+                    if (nombreTextBox.Text != "" && apellidosTextBox.Text != "" && emailMaskedTextBox.Text != "" && domicilioTextBox.Text != "" && empresaComboBox.SelectedIndex != -1)
+                    {
+                        MessageBox.Show("Revisa el Dni del Empleado");
+                    }
+                    else {
+                        MessageBox.Show("Hay campos en blanco");
+                    }
+                }
             }
         }
 
