@@ -105,7 +105,26 @@ namespace SG_ERTESheilaDavidMagdaleno
 
         private void btnC4_Click(object sender, EventArgs e)
         {
+            using (bd_ertesEntities objBD = new bd_ertesEntities())
+            {
+                var consul = from ert in objBD.ERTES
+                             select ert;
+                var minValor = consul.Min(x => x.Fecha_inicio);
+                var subConsulta = consul.Where(x => x.Fecha_inicio == minValor);
 
+
+                var Consulta = from er in subConsulta
+                               from emple in objBD.EMPLEADOS
+                               from empre in objBD.EMPRESAS
+                               where emple.Empresa == empre.Cif && empre.Cif == er.Empresa
+                               select new
+                               {
+                                   Empresa= empre.Nombre,
+                                   CIF = empre.Cif
+                                };
+       
+                dgvInformes.DataSource = Consulta.Distinct().ToList();
+            }
         }
 
         private void btnC5_Click(object sender, EventArgs e)

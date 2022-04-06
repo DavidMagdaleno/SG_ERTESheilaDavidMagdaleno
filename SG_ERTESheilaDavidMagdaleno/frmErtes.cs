@@ -19,117 +19,77 @@ namespace SG_ERTESheilaDavidMagdaleno
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (!txtNomEmp.Text.Equals(""))
+            using (bd_ertesEntities objBD = new bd_ertesEntities())
             {
-                using (bd_ertesEntities objBD = new bd_ertesEntities())
+                var consulta = from emple in objBD.EMPLEADOS
+                               group emple by emple.Empresa into grupo
+                               select new
+                               {
+                                   empr = grupo.Key,
+                                   Num_veces = grupo.Count()
+                               };
+
+                var consulta2 = from emp in objBD.EMPRESAS
+                                from sec in objBD.SECTORES
+                                from er in objBD.ERTES
+                                from emple in consulta
+                                where sec.Id_sector == emp.Sector && emp.Cif == er.Empresa && emp.Cif == emple.empr && er.Fecha_inicio >= dtIniDesde.Value.Date && er.Fecha_inicio <= dtIniHasta.Value.Date && (er.Fecha_fin >= dtFinDesde.Value.Date || er.Fecha_fin == null) && (er.Fecha_fin <= dtFinHasta.Value.Date || er.Fecha_fin == null)
+                                orderby emp.Nombre
+                                select new { Empresa = emp.Nombre, CIF = emp.Cif, Sector = sec.Descripcion, NºEmpleados = emple.Num_veces, FInicio = er.Fecha_inicio, FFin = er.Fecha_fin, er.Id_erte };
+
+
+                if (!txtNomEmp.Text.Equals(""))
                 {
-                    var consulta = from emple in objBD.EMPLEADOS
-                                   group emple by emple.Empresa into grupo
-                                   select new
-                                   {
-                                       empr = grupo.Key,
-                                       Num_veces = grupo.Count()
-                                   };
-
-                    var consulta2 = from emp in objBD.EMPRESAS
-                                    from sec in objBD.SECTORES
-                                    from er in objBD.ERTES
-                                    from emple in consulta
-                                    where emp.Nombre == txtNomEmp.Text && sec.Id_sector == emp.Sector && emp.Cif == er.Empresa && emp.Cif == emple.empr
-                                    orderby emp.Nombre
-                                    select new { Empresa = emp.Nombre, CIF = emp.Cif, Sector = sec.Descripcion, NºEmpleados = emple.Num_veces, FInicio = er.Fecha_inicio, FFin = er.Fecha_fin, er.Id_erte };
-
-                    var r = consulta2.Distinct().ToList();
-
-                    if (r.Count > 0)
+                    var subConsulta = consulta2.Where(x => x.Empresa == txtNomEmp.Text).Distinct().ToList();
+                    if (subConsulta.Count > 0)
                     {
-                        dgvErtes.DataSource = r;
+
+                        dgvErtes.DataSource = subConsulta;
                         dgvErtes.Columns[6].Visible = false;
                     }
                 }
-            }
-            else
-            {
-                //Busqueda por Sector---------------------------------------------------------------------
+
                 if (!txtNomSec.Text.Equals(""))
                 {
-                    using (bd_ertesEntities objBD = new bd_ertesEntities())
+                    var subConsulta = consulta2.Where(x => x.Sector == txtNomSec.Text).Distinct().ToList();
+                    if (subConsulta.Count > 0)
                     {
-                        var consulta = from emple in objBD.EMPLEADOS
-                                       group emple by emple.Empresa into grupo
-                                       select new
-                                       {
-                                           empr = grupo.Key,
-                                           Num_veces = grupo.Count()
-                                       };
-
-                        var consulta2 = from emp in objBD.EMPRESAS
-                                        from sec in objBD.SECTORES
-                                        from er in objBD.ERTES
-                                        from emple in consulta
-                                        where sec.Descripcion == txtNomSec.Text && sec.Id_sector == emp.Sector && emp.Cif == er.Empresa && emp.Cif == emple.empr
-                                        orderby emp.Nombre
-                                        select new { Empresa = emp.Nombre, CIF = emp.Cif, Sector = sec.Descripcion, NºEmpleados = emple.Num_veces, FInicio = er.Fecha_inicio, FFin = er.Fecha_fin, er.Id_erte };
-
-                        var r = consulta2.Distinct().ToList();
-
-                        if (r.Count > 0)
-                        {
-                            dgvErtes.DataSource = r;
-                            dgvErtes.Columns[6].Visible = false;
-                        }
+                        dgvErtes.DataSource = subConsulta;
+                        dgvErtes.Columns[6].Visible = false;
                     }
                 }
-                else
+                if (!txtNumEmple1.Text.Equals(""))
                 {
-                    //Busqueda por Nº Empleados---------------------------------------------------------------------
-                    if (!txtNumEmple1.Text.Equals("") && !txtNumEmple2.Text.Equals(""))
+                    int aux = int.Parse(txtNumEmple1.Text);
+                    var subConsulta = consulta2.Where(x => x.NºEmpleados >= aux).Distinct().ToList();
+                    if (subConsulta.Count > 0)
                     {
-                        bool valido;
-                        bool valido2;
-                        int aux;
-                        int aux2;
-                        valido = int.TryParse(txtNumEmple1.Text, out aux);
-                        valido2 = int.TryParse(txtNumEmple1.Text, out aux2);
-                        if ((valido && valido) || (valido && !valido2) || (!valido && valido2))
-                        {
-
-                            using (bd_ertesEntities objBD = new bd_ertesEntities())
-                            {
-                                var consulta = from emple in objBD.EMPLEADOS
-                                               group emple by emple.Empresa into grupo
-                                               select new
-                                               {
-                                                   empr = grupo.Key,
-                                                   Num_veces = grupo.Count()
-                                               };
-
-                                var consulta2 = from emp in objBD.EMPRESAS
-                                                from sec in objBD.SECTORES
-                                                from er in objBD.ERTES
-                                                from emple in consulta
-                                                where emple.Num_veces >= aux && emple.Num_veces <= aux2 && sec.Id_sector == emp.Sector && emp.Cif == er.Empresa && emp.Cif == emple.empr
-                                                orderby emp.Nombre
-                                                select new { Empresa = emp.Nombre, CIF = emp.Cif, Sector = sec.Descripcion, NºEmpleados = emple.Num_veces, FInicio = er.Fecha_inicio, FFin = er.Fecha_fin, er.Id_erte };
-
-                                var r = consulta2.Distinct().ToList();
-
-                                if (r.Count > 0)
-                                {
-                                    dgvErtes.DataSource = r;
-                                    dgvErtes.Columns[6].Visible = false;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Nº Empledaos debe ser numerico");
-                        }
+                        dgvErtes.DataSource = subConsulta;
+                        dgvErtes.Columns[6].Visible = false;
                     }
-                    else
+                }
+
+                if (!txtNumEmple2.Text.Equals(""))
+                {
+                    int aux = int.Parse(txtNumEmple2.Text);
+                    var subConsulta = consulta2.Where(x => x.NºEmpleados <= aux).Distinct().ToList();
+                    if (subConsulta.Count > 0)
                     {
+                        dgvErtes.DataSource = subConsulta;
+                        dgvErtes.Columns[6].Visible = false;
+                    }
+                }
 
-
+                if (!txtNumEmple1.Text.Equals("") && !txtNumEmple2.Text.Equals(""))
+                {
+                    int aux = int.Parse(txtNumEmple1.Text);
+                    int aux2 = int.Parse(txtNumEmple2.Text);
+                    var subConsulta = consulta2.Where(x => x.NºEmpleados >= aux
+                    && x.NºEmpleados <= aux2).Distinct().ToList();
+                    if (subConsulta.Count > 0)
+                    {
+                        dgvErtes.DataSource = subConsulta;
+                        dgvErtes.Columns[6].Visible = false;
                     }
                 }
             }
@@ -151,7 +111,8 @@ namespace SG_ERTESheilaDavidMagdaleno
                     }
 
                 }
-                else { 
+                else
+                {
                     MessageBox.Show("Ese ERTE ya esta Finalizado");
                 }
             }
@@ -165,6 +126,24 @@ namespace SG_ERTESheilaDavidMagdaleno
         {
             frmNewErte f1 = new frmNewErte();
             f1.ShowDialog();
+        }
+
+        private void txtNumEmple1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            comprobarNumeros(e);
+        }
+
+        private void comprobarNumeros(KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtNumEmple2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            comprobarNumeros(e);
         }
     }
 }

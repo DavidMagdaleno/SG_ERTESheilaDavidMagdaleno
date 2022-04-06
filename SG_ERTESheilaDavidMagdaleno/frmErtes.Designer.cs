@@ -137,6 +137,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.txtNumEmple1.Name = "txtNumEmple1";
             this.txtNumEmple1.Size = new System.Drawing.Size(151, 20);
             this.txtNumEmple1.TabIndex = 9;
+            this.txtNumEmple1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumEmple1_KeyPress);
             // 
             // txtNomSec
             // 
@@ -151,6 +152,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.txtNumEmple2.Name = "txtNumEmple2";
             this.txtNumEmple2.Size = new System.Drawing.Size(157, 20);
             this.txtNumEmple2.TabIndex = 11;
+            this.txtNumEmple2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumEmple2_KeyPress);
             // 
             // dtIniDesde
             // 
