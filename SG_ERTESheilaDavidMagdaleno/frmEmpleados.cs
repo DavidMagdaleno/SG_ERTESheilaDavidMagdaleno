@@ -20,7 +20,7 @@ namespace SG_ERTESheilaDavidMagdaleno
         private void eMPLEADOSBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             DialogResult resp = new DialogResult();
-            resp = MessageBox.Show("Estas seguro de quieres insertar el Empleado", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+            resp = MessageBox.Show("Estas seguro de quieres insertar el Empleado", "Guardar", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
             if (resp == DialogResult.Yes) {
                 this.Validate();
                 try {
@@ -75,6 +75,8 @@ namespace SG_ERTESheilaDavidMagdaleno
             {
                 bd_ertesDataSetTableAdapters.EMPLEADOSTableAdapter tbres = new bd_ertesDataSetTableAdapters.EMPLEADOSTableAdapter();
                 tbres.DeleteQueryEmpleados(dniMaskedTextBox.Text);
+                this.eMPRESASTableAdapter.Fill(this.bd_ertesDataSet.EMPRESAS);
+                this.eMPLEADOSTableAdapter.Fill(this.bd_ertesDataSet.EMPLEADOS);
             }
         }
     }

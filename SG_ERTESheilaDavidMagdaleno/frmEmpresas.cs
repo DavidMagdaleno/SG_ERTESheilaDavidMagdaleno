@@ -51,7 +51,12 @@ namespace SG_ERTESheilaDavidMagdaleno
         private void btnModEmp_Click(object sender, EventArgs e)
         {
             frmModEmpre f1 = new frmModEmpre(dgvEmpresas.SelectedRows[0].Cells[2].Value.ToString(), int.Parse(dgvEmpresas.SelectedRows[0].Cells[3].Value.ToString()));
-            f1.ShowDialog();
+            //f1.ShowDialog();
+            DialogResult dres = f1.ShowDialog();
+            if (dres == DialogResult.Cancel)
+            {
+                CargarDatos();
+            }
         }
 
         private void btnEli_Click(object sender, EventArgs e)
@@ -81,6 +86,7 @@ namespace SG_ERTESheilaDavidMagdaleno
                                     //se guardan los cambios
                                     objBD.SaveChanges();
                                     MessageBox.Show("Eliminado");
+                                    CargarDatos();
                                 }
                             }
                         }
@@ -99,8 +105,12 @@ namespace SG_ERTESheilaDavidMagdaleno
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            frmNewEmpre f1 = new frmNewEmpre();
-            f1.ShowDialog();
+            frmNewEmpre m = new frmNewEmpre();
+            DialogResult dres = m.ShowDialog();
+            if (dres == DialogResult.Cancel)
+            {
+                CargarDatos();
+            }
         }
     }
 }

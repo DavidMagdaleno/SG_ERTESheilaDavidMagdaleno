@@ -12,7 +12,7 @@ namespace SG_ERTESheilaDavidMagdaleno
 {
     public partial class frmNewEmpre : Form
     {
-        private List<int> aux;
+        private List<int> aux = new List<int>();
         public frmNewEmpre()
         {
             InitializeComponent();
@@ -54,15 +54,28 @@ namespace SG_ERTESheilaDavidMagdaleno
                 else
                 {
                     objEmp = objBD.EMPRESAS.Create();
-                    objEmp.Cif = txtCif.Text;
-                    objEmp.Nombre = txtNom.Text;
-                    objEmp.Domicilio = txtDom.Text;
-                    objEmp.Sector = aux[cbSec.SelectedIndex];
-                    //se guardan los cambios
-                    objBD.EMPRESAS.Add(objEmp);
-                    objBD.SaveChanges();
-                    MessageBox.Show("Añadido");
-
+                    if (!txtCif.Text.Equals("")) {
+                        objEmp.Cif = txtCif.Text;
+                        if (!txtNom.Text.Equals(""))
+                        {
+                            objEmp.Nombre = txtNom.Text;
+                            if (!txtDom.Text.Equals(""))
+                            {
+                                objEmp.Domicilio = txtDom.Text;
+                                if (cbSec.SelectedIndex != -1)
+                                {
+                                    objEmp.Sector = aux[cbSec.SelectedIndex];
+                                    //se guardan los cambios
+                                    objBD.EMPRESAS.Add(objEmp);
+                                    objBD.SaveChanges();
+                                    MessageBox.Show("Añadido");
+                                }
+                                else { MessageBox.Show("El sector esta en blanco"); }
+                            }
+                            else { MessageBox.Show("El Domicilio esta en blanco"); }
+                        }
+                        else { MessageBox.Show("El Nombre esta en blanco"); }
+                    } else { MessageBox.Show("El CIF esta en blanco"); }
                 }
             }
         }
