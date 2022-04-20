@@ -90,9 +90,14 @@ namespace SG_ERTESheilaDavidMagdaleno
             // 
             // dgvInformes
             // 
+            this.dgvInformes.AllowUserToAddRows = false;
+            this.dgvInformes.AllowUserToDeleteRows = false;
+            this.dgvInformes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvInformes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInformes.Location = new System.Drawing.Point(13, 106);
+            this.dgvInformes.MultiSelect = false;
             this.dgvInformes.Name = "dgvInformes";
+            this.dgvInformes.ReadOnly = true;
             this.dgvInformes.Size = new System.Drawing.Size(527, 161);
             this.dgvInformes.TabIndex = 5;
             // 

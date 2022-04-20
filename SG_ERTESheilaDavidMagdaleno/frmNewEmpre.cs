@@ -54,12 +54,12 @@ namespace SG_ERTESheilaDavidMagdaleno
                 else
                 {
                     objEmp = objBD.EMPRESAS.Create();
-                    if (!txtCif.Text.Equals("")) {
+                    if (!txtCif.Text.Trim().Equals("")) {
                         objEmp.Cif = txtCif.Text;
-                        if (!txtNom.Text.Equals(""))
+                        if (!txtNom.Text.Trim().Equals(""))
                         {
                             objEmp.Nombre = txtNom.Text;
-                            if (!txtDom.Text.Equals(""))
+                            if (!txtDom.Text.Trim().Equals(""))
                             {
                                 objEmp.Domicilio = txtDom.Text;
                                 if (cbSec.SelectedIndex != -1)
@@ -69,6 +69,7 @@ namespace SG_ERTESheilaDavidMagdaleno
                                     objBD.EMPRESAS.Add(objEmp);
                                     objBD.SaveChanges();
                                     MessageBox.Show("Añadido");
+                                    this.Close();
                                 }
                                 else { MessageBox.Show("El sector esta en blanco"); }
                             }

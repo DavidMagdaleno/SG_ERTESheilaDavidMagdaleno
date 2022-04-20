@@ -26,8 +26,9 @@ namespace SG_ERTESheilaDavidMagdaleno
                 try {
                     this.eMPLEADOSBindingSource.EndEdit();
                     this.tableAdapterManager.UpdateAll(this.bd_ertesDataSet);
+                    bindingNavigatorAddNewItem.Enabled = true;
                 } catch (Exception x) {
-                    if (nombreTextBox.Text != "" && apellidosTextBox.Text != "" && emailMaskedTextBox.Text != "" && domicilioTextBox.Text != "" && empresaComboBox.SelectedIndex != -1)
+                    if (nombreTextBox.Text.Trim() != "" && apellidosTextBox.Text.Trim() != "" && emailMaskedTextBox.Text.Trim() != "" && domicilioTextBox.Text.Trim() != "" && empresaComboBox.SelectedIndex != -1)
                     {
                         MessageBox.Show("Revisa el Dni del Empleado");
                         dniMaskedTextBox.Text = "";
@@ -70,6 +71,7 @@ namespace SG_ERTESheilaDavidMagdaleno
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
+            bindingNavigatorAddNewItem.Enabled = true;
             DialogResult resp = new DialogResult();
             resp = MessageBox.Show("Estas seguro de quieres eliminar el Empleado", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
             if (resp == DialogResult.Yes)
@@ -88,6 +90,13 @@ namespace SG_ERTESheilaDavidMagdaleno
                     this.eMPLEADOSTableAdapter.Fill(this.bd_ertesDataSet.EMPLEADOS);
                 }
             }
+        }
+
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            bindingNavigatorMovePreviousItem.Enabled = false;
+            bindingNavigatorMoveFirstItem.Enabled = false;
+            bindingNavigatorAddNewItem.Enabled = false;
         }
     }
 }
