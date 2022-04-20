@@ -92,6 +92,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.Controls.Add(this.dgvEmpresas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmEmpresas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmEmpresas";
             this.Load += new System.EventHandler(this.frmEmpresas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpresas)).EndInit();

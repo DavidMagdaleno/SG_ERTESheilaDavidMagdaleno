@@ -79,6 +79,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             // 
             // cbSec
             // 
+            this.cbSec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSec.FormattingEnabled = true;
             this.cbSec.Location = new System.Drawing.Point(77, 125);
             this.cbSec.Name = "cbSec";
@@ -141,7 +142,9 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmNewEmpre";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmNewEmpre";
             this.ResumeLayout(false);
             this.PerformLayout();

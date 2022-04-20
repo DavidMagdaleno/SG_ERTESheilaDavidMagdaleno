@@ -30,6 +30,7 @@ namespace SG_ERTESheilaDavidMagdaleno
                     if (nombreTextBox.Text != "" && apellidosTextBox.Text != "" && emailMaskedTextBox.Text != "" && domicilioTextBox.Text != "" && empresaComboBox.SelectedIndex != -1)
                     {
                         MessageBox.Show("Revisa el Dni del Empleado");
+                        dniMaskedTextBox.Text = "";
                     }
                     else {
                         MessageBox.Show("Hay campos en blanco");
@@ -74,9 +75,18 @@ namespace SG_ERTESheilaDavidMagdaleno
             if (resp == DialogResult.Yes)
             {
                 bd_ertesDataSetTableAdapters.EMPLEADOSTableAdapter tbres = new bd_ertesDataSetTableAdapters.EMPLEADOSTableAdapter();
-                tbres.DeleteQueryEmpleados(dniMaskedTextBox.Text);
-                this.eMPRESASTableAdapter.Fill(this.bd_ertesDataSet.EMPRESAS);
-                this.eMPLEADOSTableAdapter.Fill(this.bd_ertesDataSet.EMPLEADOS);
+                var aux=tbres.FillByDNI(bd_ertesDataSet.EMPLEADOS, dniMaskedTextBox.Text);
+                if (aux > 0)
+                {
+                    tbres.DeleteQueryEmpleados(dniMaskedTextBox.Text);
+                    this.eMPRESASTableAdapter.Fill(this.bd_ertesDataSet.EMPRESAS);
+                    this.eMPLEADOSTableAdapter.Fill(this.bd_ertesDataSet.EMPLEADOS);
+                }
+                else {
+                    MessageBox.Show("El Empleado no existe");
+                    this.eMPRESASTableAdapter.Fill(this.bd_ertesDataSet.EMPRESAS);
+                    this.eMPLEADOSTableAdapter.Fill(this.bd_ertesDataSet.EMPLEADOS);
+                }
             }
         }
     }

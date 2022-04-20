@@ -326,6 +326,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.empresaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.eMPLEADOSBindingSource, "Empresa", true));
             this.empresaComboBox.DataSource = this.eMPRESASBindingSource;
             this.empresaComboBox.DisplayMember = "Nombre";
+            this.empresaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.empresaComboBox.FormattingEnabled = true;
             this.empresaComboBox.Location = new System.Drawing.Point(70, 172);
             this.empresaComboBox.Name = "empresaComboBox";

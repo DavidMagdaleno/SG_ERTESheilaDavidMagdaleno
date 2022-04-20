@@ -37,6 +37,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             // 
             // cb_em
             // 
+            this.cb_em.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_em.FormattingEnabled = true;
             this.cb_em.Location = new System.Drawing.Point(80, 52);
             this.cb_em.Name = "cb_em";
@@ -83,6 +84,7 @@ namespace SG_ERTESheilaDavidMagdaleno
             this.Controls.Add(this.cb_em);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmNewErte";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmNewErte";
             this.ResumeLayout(false);
             this.PerformLayout();

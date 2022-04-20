@@ -147,7 +147,7 @@ namespace SG_ERTESheilaDavidMagdaleno
                 var consulta4 = from ew in subConsulta.ToList()
                                 select new
                                 {
-                                    ew.Num_veces
+                                    NºEmpleados=ew.Num_veces
                                 };
 
                 dgvInformes.DataSource = consulta4.Distinct().ToList();
