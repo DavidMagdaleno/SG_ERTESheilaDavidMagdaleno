@@ -38,9 +38,9 @@ namespace SG_ERTESheilaDavidMagdaleno
                                 select new { Empresa = emp.Nombre, CIF = emp.Cif, Sector = sec.Descripcion, NºEmpleados = emple.Num_veces, FInicio = er.Fecha_inicio, FFin = er.Fecha_fin, er.Id_erte };
 
 
-                if (!txtNomEmp.Text.Equals(""))
-                {
-                    var subConsulta = consulta2.Where(x => x.Empresa == txtNomEmp.Text).Distinct().ToList();
+
+                if (txtNomEmp.Text.Trim().Equals("") && txtNomSec.Text.Trim().Equals("")) {
+                    var subConsulta = consulta2.Distinct().ToList();
                     if (subConsulta.Count > 0)
                     {
 
@@ -49,18 +49,29 @@ namespace SG_ERTESheilaDavidMagdaleno
                     }
                 }
 
-                if (!txtNomSec.Text.Equals(""))
+                if (!txtNomEmp.Text.Trim().Equals(""))
                 {
-                    var subConsulta = consulta2.Where(x => x.Sector == txtNomSec.Text).Distinct().ToList();
+                    var subConsulta = consulta2.Where(x => x.Empresa == txtNomEmp.Text.Trim()).Distinct().ToList();
+                    if (subConsulta.Count > 0)
+                    {
+
+                        dgvErtes.DataSource = subConsulta;
+                        dgvErtes.Columns[6].Visible = false;
+                    }
+                }
+
+                if (!txtNomSec.Text.Trim().Equals(""))
+                {
+                    var subConsulta = consulta2.Where(x => x.Sector == txtNomSec.Text.Trim()).Distinct().ToList();
                     if (subConsulta.Count > 0)
                     {
                         dgvErtes.DataSource = subConsulta;
                         dgvErtes.Columns[6].Visible = false;
                     }
                 }
-                if (!txtNumEmple1.Text.Equals(""))
+                if (!txtNumEmple1.Text.Trim().Equals(""))
                 {
-                    int aux = int.Parse(txtNumEmple1.Text);
+                    int aux = int.Parse(txtNumEmple1.Text.Trim());
                     var subConsulta = consulta2.Where(x => x.NºEmpleados >= aux).Distinct().ToList();
                     if (subConsulta.Count > 0)
                     {
@@ -69,9 +80,9 @@ namespace SG_ERTESheilaDavidMagdaleno
                     }
                 }
 
-                if (!txtNumEmple2.Text.Equals(""))
+                if (!txtNumEmple2.Text.Trim().Equals(""))
                 {
-                    int aux = int.Parse(txtNumEmple2.Text);
+                    int aux = int.Parse(txtNumEmple2.Text.Trim());
                     var subConsulta = consulta2.Where(x => x.NºEmpleados <= aux).Distinct().ToList();
                     if (subConsulta.Count > 0)
                     {
@@ -80,10 +91,10 @@ namespace SG_ERTESheilaDavidMagdaleno
                     }
                 }
 
-                if (!txtNumEmple1.Text.Equals("") && !txtNumEmple2.Text.Equals(""))
+                if (!txtNumEmple1.Text.Trim().Equals("") && !txtNumEmple2.Text.Trim().Equals(""))
                 {
-                    int aux = int.Parse(txtNumEmple1.Text);
-                    int aux2 = int.Parse(txtNumEmple2.Text);
+                    int aux = int.Parse(txtNumEmple1.Text.Trim());
+                    int aux2 = int.Parse(txtNumEmple2.Text.Trim());
                     var subConsulta = consulta2.Where(x => x.NºEmpleados >= aux
                     && x.NºEmpleados <= aux2).Distinct().ToList();
                     if (subConsulta.Count > 0)

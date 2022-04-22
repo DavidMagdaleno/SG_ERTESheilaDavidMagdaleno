@@ -19,25 +19,39 @@ namespace SG_ERTESheilaDavidMagdaleno
 
         private void eMPLEADOSBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            DialogResult resp = new DialogResult();
-            resp = MessageBox.Show("Estas seguro de quieres insertar el Empleado", "Guardar", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
-            if (resp == DialogResult.Yes) {
-                this.Validate();
-                try {
-                    this.eMPLEADOSBindingSource.EndEdit();
-                    this.tableAdapterManager.UpdateAll(this.bd_ertesDataSet);
-                    bindingNavigatorAddNewItem.Enabled = true;
-                } catch (Exception x) {
-                    if (nombreTextBox.Text.Trim() != "" && apellidosTextBox.Text.Trim() != "" && emailMaskedTextBox.Text.Trim() != "" && domicilioTextBox.Text.Trim() != "" && empresaComboBox.SelectedIndex != -1)
+            if (dniMaskedTextBox.Text.Trim() != "" && nombreTextBox.Text.Trim() != "" && apellidosTextBox.Text.Trim() != "" && emailMaskedTextBox.Text.Trim() != "" && domicilioTextBox.Text.Trim() != "" && empresaComboBox.SelectedIndex != -1)
+            {
+                DialogResult resp = new DialogResult();
+                resp = MessageBox.Show("Estas seguro de quieres insertar el Empleado", "Guardar", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+                if (resp == DialogResult.Yes)
+                {
+                    try
                     {
-                        MessageBox.Show("Revisa el Dni del Empleado");
-                        dniMaskedTextBox.Text = "";
+                        dniMaskedTextBox.Text = dniMaskedTextBox.Text.Trim();
+                        nombreTextBox.Text = nombreTextBox.Text.Trim();
+                        apellidosTextBox.Text = apellidosTextBox.Text.Trim();
+                        emailMaskedTextBox.Text = emailMaskedTextBox.Text.Trim();
+                        domicilioTextBox.Text = domicilioTextBox.Text.Trim();
+                        this.Validate();
+                        this.eMPLEADOSBindingSource.EndEdit();
+                        this.tableAdapterManager.UpdateAll(this.bd_ertesDataSet);
+                        bindingNavigatorAddNewItem.Enabled = true;
                     }
-                    else {
-                        MessageBox.Show("Hay campos en blanco");
+                    catch (Exception x)
+                    {
+                        if (nombreTextBox.Text.Trim() != "" && apellidosTextBox.Text.Trim() != "" && emailMaskedTextBox.Text.Trim() != "" && domicilioTextBox.Text.Trim() != "" && empresaComboBox.SelectedIndex != -1)
+                        {
+                            MessageBox.Show("Revisa el Dni del Empleado");
+                            dniMaskedTextBox.Text = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Hay campos en blanco");
+                        }
                     }
                 }
             }
+            else { MessageBox.Show("Hay campos en blanco"); }
         }
 
         private void frmEmpleados_Load(object sender, EventArgs e)

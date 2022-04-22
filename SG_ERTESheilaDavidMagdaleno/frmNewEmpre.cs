@@ -55,13 +55,13 @@ namespace SG_ERTESheilaDavidMagdaleno
                 {
                     objEmp = objBD.EMPRESAS.Create();
                     if (!txtCif.Text.Trim().Equals("")) {
-                        objEmp.Cif = txtCif.Text;
+                        objEmp.Cif = txtCif.Text.Trim();
                         if (!txtNom.Text.Trim().Equals(""))
                         {
-                            objEmp.Nombre = txtNom.Text;
+                            objEmp.Nombre = txtNom.Text.Trim();
                             if (!txtDom.Text.Trim().Equals(""))
                             {
-                                objEmp.Domicilio = txtDom.Text;
+                                objEmp.Domicilio = txtDom.Text.Trim();
                                 if (cbSec.SelectedIndex != -1)
                                 {
                                     objEmp.Sector = aux[cbSec.SelectedIndex];

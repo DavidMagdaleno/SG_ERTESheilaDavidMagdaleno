@@ -79,10 +79,10 @@ namespace SG_ERTESheilaDavidMagdaleno
                 {
                     if (!txtNom.Text.Trim().Equals(""))
                     {
-                        objEmp.Nombre = txtNom.Text;
+                        objEmp.Nombre = txtNom.Text.Trim();
                         if (!txtDom.Text.Trim().Equals(""))
                         {
-                            objEmp.Domicilio = txtDom.Text;
+                            objEmp.Domicilio = txtDom.Text.Trim();
                             if (cbSec.SelectedIndex!=-1) {
                                 objEmp.Sector = listaux[cbSec.SelectedIndex];
                                 //se guardan los cambios
