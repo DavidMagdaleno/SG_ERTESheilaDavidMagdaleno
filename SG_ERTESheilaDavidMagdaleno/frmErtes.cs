@@ -39,7 +39,6 @@ namespace SG_ERTESheilaDavidMagdaleno
                                 select new { Empresa = emp.Nombre, CIF = emp.Cif, Sector = sec.Descripcion, NºEmpleados = emple.Num_veces, FInicio = er.Fecha_inicio, FFin = er.Fecha_fin, er.Id_erte };
 
 
-
                 if (txtNomEmp.Text.Trim().Equals("") && txtNomSec.Text.Trim().Equals("")) {
                     var subConsulta = consulta2.Distinct().ToList();
                     
@@ -48,11 +47,12 @@ namespace SG_ERTESheilaDavidMagdaleno
                         dgvErtes.DataSource = subConsulta;
                         dgvErtes.Columns[6].Visible = false;
                     }
+
                 }
 
                 if (!txtNomEmp.Text.Trim().Equals(""))
                 {
-                    var subConsulta = consulta2.Where(x => x.Empresa.StartsWith(txtNomEmp.Text)).Distinct().ToList();
+                    var subConsulta = consulta2.Where(x => x.Empresa==txtNomEmp.Text).Distinct().ToList();
                     
                     if (subConsulta.Count > 0)
                     {

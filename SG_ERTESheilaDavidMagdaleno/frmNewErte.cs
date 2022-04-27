@@ -60,17 +60,30 @@ namespace SG_ERTESheilaDavidMagdaleno
 
         private void btnA_Click(object sender, EventArgs e)
         {
+            string  t= listaux[cb_em.SelectedIndex];
             using (bd_ertesEntities objBD = new bd_ertesEntities())
             {
                 
-                ERTES objEr = objBD.ERTES.Create();
-                objEr.Empresa = listaux[cb_em.SelectedIndex];
-                objEr.Fecha_inicio = DateTime.Today;
-                //se guardan los cambios
-                objBD.ERTES.Add(objEr);
-                objBD.SaveChanges();
-                MessageBox.Show("Añadido");
-                this.Close();
+                var aux = from emple in objBD.EMPLEADOS
+                          where emple.Empresa.Equals(t)
+                          select emple;
+                
+                var subAux = aux.Distinct().ToList();
+                //var aux2 = aux.First();
+                if (subAux.Count>0)                                   
+                {
+                    ERTES objEr = objBD.ERTES.Create();
+                    objEr.Empresa = listaux[cb_em.SelectedIndex];
+                    objEr.Fecha_inicio = DateTime.Today;
+                    //se guardan los cambios
+                    objBD.ERTES.Add(objEr);
+                    objBD.SaveChanges();
+                    MessageBox.Show("Añadido");
+                    this.Close();
+                }
+                else {
+                    MessageBox.Show("Esa empresa no tiene contratado ningun empleado, no se le permite realizar un ERTE");
+                }
             }
         }
 
