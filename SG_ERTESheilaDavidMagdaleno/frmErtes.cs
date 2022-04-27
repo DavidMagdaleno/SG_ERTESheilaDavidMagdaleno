@@ -19,6 +19,7 @@ namespace SG_ERTESheilaDavidMagdaleno
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            //limpiar datagrid
             using (bd_ertesEntities objBD = new bd_ertesEntities())
             {
                 var consulta = from emple in objBD.EMPLEADOS
@@ -41,9 +42,9 @@ namespace SG_ERTESheilaDavidMagdaleno
 
                 if (txtNomEmp.Text.Trim().Equals("") && txtNomSec.Text.Trim().Equals("")) {
                     var subConsulta = consulta2.Distinct().ToList();
+                    
                     if (subConsulta.Count > 0)
                     {
-
                         dgvErtes.DataSource = subConsulta;
                         dgvErtes.Columns[6].Visible = false;
                     }
@@ -51,10 +52,11 @@ namespace SG_ERTESheilaDavidMagdaleno
 
                 if (!txtNomEmp.Text.Trim().Equals(""))
                 {
-                    var subConsulta = consulta2.Where(x => x.Empresa == txtNomEmp.Text.Trim()).Distinct().ToList();
+                    var subConsulta = consulta2.Where(x => x.Empresa.StartsWith(txtNomEmp.Text)).Distinct().ToList();
+                    
                     if (subConsulta.Count > 0)
                     {
-
+                        
                         dgvErtes.DataSource = subConsulta;
                         dgvErtes.Columns[6].Visible = false;
                     }
